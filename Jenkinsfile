@@ -21,9 +21,13 @@
 
 node {
 	stage ('Build') {
-		sh 'npm install'
+		steps {
+			sh 'npm install'
+		}
 	}
 	stage ('Test') {
-		sh './jenkins/scripts/test.sh'
+		steps {
+			sh './jenkins/scripts/test.sh'
+		}
 	}
 }
