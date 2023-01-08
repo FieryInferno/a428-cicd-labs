@@ -1,10 +1,12 @@
 node {
-	sh 'npm --version'
+	withDockerContainer('node:lts-bullseye-slim') {
+		sh 'npm --version'
 
-	stage ('Build') {
-		sh 'npm install'
-	}
-	stage ('Test') {
-		sh './jenkins/scripts/test.sh'
+		stage ('Build') {
+			sh 'npm install'
+		}
+		stage ('Test') {
+			sh './jenkins/scripts/test.sh'
+		}
 	}
 }
