@@ -1,4 +1,6 @@
 node {
+	sh 'npm --version'
+
 	stage ('Build') {
 		sh 'npm install'
 	}
