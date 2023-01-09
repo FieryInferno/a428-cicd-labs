@@ -1,12 +1,15 @@
 node {
-	withDockerContainer(args:'-p 3000:3000 -v 04c12079dd2ebfeafa6acc78ac1aaf1bdd586101c49f5adc84c44c1dfee4f39f', image:'node:lts-bullseye-slim') {
-		sh 'npm --version'
-
+	withDockerContainer(args:'-p 3000:3000', image:'node:lts-bullseye-slim') {
 		stage ('Build') {
 			sh 'npm install'
 		}
 		stage ('Test') {
 			sh './jenkins/scripts/test.sh'
+		}
+		stage('Deliver') {
+			sh './jenkins/scripts/deliver.sh'
+			input message: 'Finished using the web site? (Click "Proceed" to continue)'
+			sh './jenkins/scripts/kill.sh'
 		}
 	}
 }
